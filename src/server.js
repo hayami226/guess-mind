@@ -28,4 +28,4 @@ const io = socketIO(server);
 // emit : send event to connection socket
 // boradcast : send event to other socket
 
-io.on("connection", (socket) => socketController(socket));
+io.on("connection", (socket) => socketController(socket, io));
