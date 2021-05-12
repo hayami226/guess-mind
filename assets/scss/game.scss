@@ -17,6 +17,17 @@
         width: 700px;
         height: 700px;
       }
+      .notifs {
+        background-color: $orange;
+        margin-bottom: 10px;
+        color: $greyColor;
+        height: 50px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 50px;
+        border-radius: 10px;
+      }         
       .controls {
         margin-top: 25px;
         display: flex;
@@ -69,7 +80,7 @@
             transform: scale(0.98);
           }
         }
-      }
+      }   
     }
     .chat {
       width: 200px;
