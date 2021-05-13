@@ -331,7 +331,7 @@ if (canvas) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.handleGameStarting = exports.handleGameEnded = exports.handleLeaderNotif = exports.handleGameStarted = exports.handlePlayerUpdate = void 0;
+exports.handleTimer = exports.handleGameStarting = exports.handleGameEnded = exports.handleLeaderNotif = exports.handleGameStarted = exports.handlePlayerUpdate = void 0;
 
 var _chat = require("./chat");
 
@@ -339,6 +339,7 @@ var _paint = require("./paint");
 
 var board = document.getElementById("jsPBoard");
 var notifs = document.getElementById("jsNotifs");
+var timer = document.getElementById("jsTimer");
 
 var addPlayers = function addPlayers(players) {
   board.innerHTML = "";
@@ -354,6 +355,10 @@ var setNotify = function setNotify(text) {
   notifs.innerText = text;
 };
 
+var setTimer = function setTimer(time) {
+  timer.innerText = "Timer : ".concat(time);
+};
+
 var handlePlayerUpdate = function handlePlayerUpdate(_ref) {
   var sockets = _ref.sockets;
   return addPlayers(sockets);
@@ -366,6 +371,7 @@ var handleGameStarted = function handleGameStarted() {
   (0, _paint.disableCanvas)();
   (0, _paint.hideControls)();
   (0, _chat.enableChat)();
+  setNotify("What painting is it?");
 };
 
 exports.handleGameStarted = handleGameStarted;
@@ -385,6 +391,7 @@ var handleGameEnded = function handleGameEnded() {
   (0, _paint.disableCanvas)();
   (0, _paint.hideControls)();
   (0, _paint.resetCanvas)();
+  timer.innerText = "";
 };
 
 exports.handleGameEnded = handleGameEnded;
@@ -394,6 +401,13 @@ var handleGameStarting = function handleGameStarting() {
 };
 
 exports.handleGameStarting = handleGameStarting;
+
+var handleTimer = function handleTimer(_ref3) {
+  var time = _ref3.time;
+  return setTimer(time);
+};
+
+exports.handleTimer = handleTimer;
 
 },{"./chat":1,"./paint":5}],7:[function(require,module,exports){
 "use strict";
@@ -434,6 +448,7 @@ var initSockets = function initSockets(aSocket) {
   socket.on(events.leaderNotif, _players.handleLeaderNotif);
   socket.on(events.gameEnded, _players.handleGameEnded);
   socket.on(events.gameStarting, _players.handleGameStarting);
+  socket.on(events.timer, _players.handleTimer);
 };
 
 exports.initSockets = initSockets;

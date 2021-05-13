@@ -9,6 +9,7 @@ import {
 
 const board = document.getElementById("jsPBoard");
 const notifs = document.getElementById("jsNotifs");
+const timer = document.getElementById("jsTimer");
 
 const addPlayers = (players) => {
   board.innerHTML = "";
@@ -24,12 +25,17 @@ const setNotify = (text) => {
   notifs.innerText = text;
 };
 
+const setTimer = (time) => {
+  timer.innerText = `Timer : ${time}`;
+};
+
 export const handlePlayerUpdate = ({ sockets }) => addPlayers(sockets);
 export const handleGameStarted = () => {
   setNotify("");
   disableCanvas();
   hideControls();
   enableChat();
+  setNotify("What painting is it?");
 };
 export const handleLeaderNotif = ({ word }) => {
   enableCanvas();
@@ -42,5 +48,8 @@ export const handleGameEnded = () => {
   disableCanvas();
   hideControls();
   resetCanvas();
+  timer.innerText = "";
 };
+
 export const handleGameStarting = () => setNotify("Game will start soon");
+export const handleTimer = ({ time }) => setTimer(time);
